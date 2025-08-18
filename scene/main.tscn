@@ -1,0 +1,97 @@
+[gd_scene load_steps=15 format=3 uid="uid://8i5r886m048e"]
+
+[ext_resource type="Script" path="res://script/Main/main.gd" id="1_c5bq3"]
+[ext_resource type="Script" path="res://script/UI/SceneChanges.gd" id="2_2bs8e"]
+[ext_resource type="Script" path="res://script/Main/Camera2D.gd" id="2_ab5t6"]
+[ext_resource type="PackedScene" uid="uid://ggn7rho5kv37" path="res://scene/alchemy_scene.tscn" id="3_ec2aq"]
+[ext_resource type="PackedScene" uid="uid://yy44dyk8narh" path="res://scene/plant_scene.tscn" id="4_olxen"]
+[ext_resource type="Script" path="res://script/UI/SeedButton.gd" id="4_whr42"]
+[ext_resource type="PackedScene" uid="uid://d377won1n3xip" path="res://scene/front_scene.tscn" id="5_caes0"]
+[ext_resource type="Texture2D" uid="uid://cpa2ro8ue7dj5" path="res://Sprites/work station.png" id="5_e1gad"]
+[ext_resource type="Script" path="res://script/Main/Clickable.gd" id="5_v3qrv"]
+[ext_resource type="Script" path="res://script/UI/ItemButton.gd" id="6_5ijib"]
+[ext_resource type="Script" path="res://script/Front/front_scene.gd" id="6_j3ya5"]
+[ext_resource type="Texture2D" uid="uid://cuclaf7kmhqoj" path="res://Sprites/Piknik basket.png" id="7_pkihs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3d2dp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2yl1u"]
+size = Vector2(97, 78)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_c5bq3")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_ab5t6")
+
+[node name="ItemButton" type="Node2D" parent="Camera2D"]
+position = Vector2(524, 271)
+scale = Vector2(4, 4)
+script = ExtResource("6_5ijib")
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/ItemButton"]
+texture = ExtResource("7_pkihs")
+
+[node name="Area2D" type="Area2D" parent="Camera2D/ItemButton"]
+script = ExtResource("5_v3qrv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/ItemButton/Area2D"]
+shape = SubResource("RectangleShape2D_3d2dp")
+
+[node name="SeedButton" type="Node2D" parent="Camera2D"]
+position = Vector2(517, -286)
+script = ExtResource("4_whr42")
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/SeedButton"]
+scale = Vector2(3, 3)
+texture = ExtResource("5_e1gad")
+
+[node name="Area2D" type="Area2D" parent="Camera2D/SeedButton"]
+script = ExtResource("5_v3qrv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/SeedButton/Area2D"]
+position = Vector2(-0.5, 11)
+shape = SubResource("RectangleShape2D_2yl1u")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 0
+script = ExtResource("2_2bs8e")
+
+[node name="Navigation" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SceneRight" type="Button" parent="UI/Navigation"]
+layout_mode = 0
+offset_left = 1047.0
+offset_top = 279.0
+offset_right = 1124.0
+offset_bottom = 321.0
+
+[node name="SceneLeft" type="Button" parent="UI/Navigation"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 278.0
+offset_right = 104.0
+offset_bottom = 320.0
+
+[node name="Coins" type="Label" parent="UI"]
+offset_left = 8.0
+offset_top = 7.0
+offset_right = 140.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 16
+metadata/_edit_use_anchors_ = true
+
+[node name="AlchemyScene" parent="." instance=ExtResource("3_ec2aq")]
+position = Vector2(1152, 0)
+
+[node name="PlantScene" parent="." instance=ExtResource("4_olxen")]
+
+[node name="FrontScene" parent="." instance=ExtResource("5_caes0")]
+position = Vector2(-1152, 0)
+script = ExtResource("6_j3ya5")
+
+[connection signal="mouse_entered" from="Camera2D/SeedButton/Area2D" to="Camera2D/SeedButton/Area2D" method="_on_mouse_entered"]

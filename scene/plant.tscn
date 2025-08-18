@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://bbssmnccixvya"]
+
+[ext_resource type="Script" path="res://script/Plant/Plant.gd" id="1_bi0jn"]
+[ext_resource type="Texture2D" uid="uid://c0p6juaq00l0" path="res://Sprites/potted-Sheet.png" id="2_jrw6j"]
+[ext_resource type="Script" path="res://script/Plant/Holder.gd" id="2_pqtr5"]
+[ext_resource type="Script" path="res://script/Main/Clickable.gd" id="3_6ggw2"]
+[ext_resource type="Script" path="res://script/Plant/Soil.gd" id="5_ohcif"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1flg1"]
+atlas = ExtResource("2_jrw6j")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3et2v"]
+atlas = ExtResource("2_jrw6j")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0a0x"]
+atlas = ExtResource("2_jrw6j")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1mp3t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1flg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3et2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0a0x")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n6i3h"]
+size = Vector2(34.6667, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olpap"]
+size = Vector2(34.3333, 15.3333)
+
+[node name="Plant" type="Node2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_bi0jn")
+
+[node name="Holder" type="Node2D" parent="."]
+script = ExtResource("2_pqtr5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Holder"]
+position = Vector2(0, -19.3333)
+sprite_frames = SubResource("SpriteFrames_1mp3t")
+animation = &"new_animation"
+
+[node name="Pot" type="Area2D" parent="Holder"]
+script = ExtResource("3_6ggw2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Pot"]
+position = Vector2(-9.53674e-07, 2.33333)
+shape = SubResource("RectangleShape2D_n6i3h")
+
+[node name="Timer" type="Timer" parent="Holder"]
+
+[node name="Soil" type="Area2D" parent="Holder" groups=["Soil"]]
+position = Vector2(0, 3)
+script = ExtResource("5_ohcif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Soil"]
+position = Vector2(0, -15.6667)
+shape = SubResource("RectangleShape2D_olpap")

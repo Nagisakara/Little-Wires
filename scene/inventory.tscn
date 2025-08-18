@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://wf0st3lyqvq6"]
+
+[ext_resource type="Script" path="res://script/UI/inventory.gd" id="1_lc1dw"]
+[ext_resource type="Texture2D" uid="uid://df6r1220hmoll" path="res://Sprites/inventory-background.png" id="1_m15oy"]
+[ext_resource type="PackedScene" uid="uid://cltudl1heya3t" path="res://scene/inv_slot.tscn" id="2_yyjam"]
+
+[node name="Inventory" type="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+scale = Vector2(4, 4)
+mouse_filter = 1
+script = ExtResource("1_lc1dw")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_m15oy")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="GridContainer" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="InvSlot" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[node name="InvSlot2" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[node name="InvSlot3" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[node name="InvSlot4" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[node name="InvSlot5" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[node name="InvSlot6" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[node name="InvSlot7" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[node name="InvSlot8" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[node name="InvSlot9" parent="NinePatchRect/GridContainer" instance=ExtResource("2_yyjam")]
+layout_mode = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

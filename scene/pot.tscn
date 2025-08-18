@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c23nk2r30m8h4"]
+
+[ext_resource type="Script" path="res://script/Main/placeable.gd" id="1_0dnkx"]
+[ext_resource type="Texture2D" uid="uid://c7y0ooauh0aba" path="res://Sprites/table-Sheet.png" id="2_tb23w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yti6w"]
+atlas = ExtResource("2_tb23w")
+region = Rect2(32, 0, 64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_380px"]
+size = Vector2(64, 42.5)
+
+[node name="Pot" type="Area2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_0dnkx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_yti6w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.25)
+shape = SubResource("RectangleShape2D_380px")

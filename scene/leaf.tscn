@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://ibnrlaq348o0"]
+
+[ext_resource type="Script" path="res://script/Plant/leaf.gd" id="1_0jxn8"]
+[ext_resource type="Texture2D" uid="uid://dx8t2uhuoijnp" path="res://Sprites/leaf-Sheet.png" id="2_seexa"]
+[ext_resource type="Script" path="res://script/Main/Clickable.gd" id="3_8aqwc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ueycv"]
+atlas = ExtResource("2_seexa")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4nn3b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ueycv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aoq8c"]
+size = Vector2(32, 32)
+
+[node name="Leaf" type="Node2D"]
+position = Vector2(-16, 16)
+script = ExtResource("1_0jxn8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, -16)
+sprite_frames = SubResource("SpriteFrames_4nn3b")
+
+[node name="Area2D" type="Area2D" parent="." groups=["Clicks"]]
+script = ExtResource("3_8aqwc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(16, -16)
+shape = SubResource("RectangleShape2D_aoq8c")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(17, -19)
+scale = Vector2(1, 0.9)

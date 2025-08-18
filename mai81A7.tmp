@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://8i5r886m048e"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_0h53k"]
+[ext_resource type="Script" path="res://Purchase.gd" id="2_jpr8m"]
+[ext_resource type="Script" path="res://Coins.gd" id="3_yueoe"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0h53k")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Purchase" type="Button" parent="CanvasLayer"]
+offset_left = 999.0
+offset_top = 554.0
+offset_right = 1132.0
+offset_bottom = 627.0
+theme_override_font_sizes/font_size = 16
+script = ExtResource("2_jpr8m")
+
+[node name="Coins" type="Label" parent="CanvasLayer"]
+offset_left = 8.0
+offset_top = 7.0
+offset_right = 140.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 16
+script = ExtResource("3_yueoe")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2wef6258xxrw"]
+
+[ext_resource type="Script" path="res://script/Front/sellSlot.gd" id="1_0k21e"]
+[ext_resource type="Texture2D" uid="uid://cpc3kkcfnptws" path="res://Sprites/inventory-slot.png" id="1_jwyls"]
+[ext_resource type="Texture2D" uid="uid://did35ctod25n6" path="res://Sprites/leaf-export.png" id="2_0qino"]
+[ext_resource type="Script" path="res://script/Main/Clickable.gd" id="4_j63kn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isasj"]
+size = Vector2(16, 16)
+
+[node name="SellSlot" type="Panel"]
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+script = ExtResource("1_0k21e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jwyls")
+centered = false
+
+[node name="Display" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(8, 8)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_0qino")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 9.0
+offset_right = 22.0
+offset_bottom = 32.0
+scale = Vector2(0.25, 0.25)
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("4_j63kn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_isasj")
