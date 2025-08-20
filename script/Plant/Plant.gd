@@ -1,6 +1,6 @@
 extends Node2D
 
-enum holdState {INVENTORY, BOARD, SHOP, SELL}
+enum holdState {INVENTORY, BOARD, SELLING, PURCHASING, BUY}
 
 var area : Area2D
 var soil : Area2D
@@ -11,8 +11,8 @@ var seedName : String
 var state := holdState.BOARD
 var follow := false
 var velocity := 0.0
-var potPos := Vector2(0, 0)
-var pot
+var pos := Vector2(0, 0)
+var tempScene
 
 signal plucked
 
@@ -39,7 +39,7 @@ func _physics_process(delta):
 			velocity = 0
 		self.position = oldPos + (newPos*velocity*delta)
 
-func _unhandled_input(event):
+func _input(event):
 	if event.is_action_released("Click") and follow:
 		var space_state = get_world_2d().direct_space_state
 		var params = PhysicsPointQueryParameters2D.new() 
@@ -47,29 +47,83 @@ func _unhandled_input(event):
 		params.collide_with_areas = true
 		var out = space_state.intersect_point(params)
 		for i in range(out.size()):
-			if out[i].collider.is_in_group("Pots"):
-				setPot(out[i].collider.global_position)
-				state = holdState.BOARD
-				out[i].collider.place()
-				if pot:
-					pot.unplace()
-				pot = out[i].collider
-				drop()
-				return
-			if out[i].collider.is_in_group("Shop"):
-				state = holdState.SHOP
-				if pot:
-					pot.unplace()
-				potPos = get_global_mouse_position() - Global.sceneCamera.position
-				drop()
-				return
-			if out[i].collider.is_in_group("ItemButton") && holder.state == holder.plantState.POT:
-				if pot:
-					pot.unplace()
-				state = holdState.INVENTORY
-				drop()
-				return
+			match state:
+				holdState.BOARD:
+					if out[i].collider.is_in_group("Pots"):
+						setPos(out[i].collider.global_position)
+						state = holdState.BOARD
+						out[i].collider.place(null)
+						if tempScene is placeable:
+							tempScene.unplace(null)
+						tempScene = out[i].collider
+						drop()
+						return
+					if out[i].collider.is_in_group("ItemButton") && holder.state == holder.plantState.POT:
+						if tempScene is placeable:
+							tempScene.unplace(null)
+						state = holdState.INVENTORY
+						drop()
+						return
+				holdState.INVENTORY:
+					if out[i].collider.is_in_group("Pots"):
+						setPos(out[i].collider.global_position)
+						state = holdState.BOARD
+						out[i].collider.place(null)
+						if tempScene is placeable:
+							tempScene.unplace(null)
+						tempScene = out[i].collider
+						drop()
+						return
+					if out[i].collider.is_in_group("Selling"):
+						placeBox("Sell")
+						state = holdState.SELLING
+						pos = get_global_mouse_position() - Global.sceneCamera.position
+						drop()
+						return
+				holdState.SELLING:
+					if out[i].collider.is_in_group("Selling"):
+						state = holdState.SELLING
+						pos = get_global_mouse_position() - Global.sceneCamera.position
+						drop()
+						return
+					if out[i].collider.is_in_group("ItemButton") && holder.state == holder.plantState.POT:
+						unplaceBox("Sell")
+						state = holdState.INVENTORY
+						drop()
+						return
+				holdState.PURCHASING:
+					if out[i].collider.is_in_group("Purchasing"):
+						state = holdState.PURCHASING
+						pos = get_global_mouse_position() - Global.sceneCamera.position
+						drop()
+						return
+					if out[i].collider.is_in_group("SellFront"):
+						unplaceBox("Buy")
+						state = holdState.BUY
+						drop()
+						return
+				holdState.BUY:
+					if out[i].collider.is_in_group("Purchasing"):
+						placeBox("Buy")
+						state = holdState.PURCHASING
+						pos = get_global_mouse_position() - Global.sceneCamera.position
+						drop()
+						return
 		drop()
+
+func placeBox(Which : String):
+	match Which:
+		"Buy":
+			Global.sceneInstanced.getBuyBox().place(self)
+		"Sell":
+			Global.sceneInstanced.getSellBox().place(self)
+
+func unplaceBox(Which : String):
+	match Which:
+		"Buy":
+			Global.sceneInstanced.getBuyBox().unplace(self)
+		"Sell":
+			Global.sceneInstanced.getSellBox().unplace(self)
 
 func click():
 	hold()
@@ -85,16 +139,21 @@ func drop():
 	follow = false
 	match state:
 		holdState.BOARD:
-			self.position = potPos
+			self.position = pos
 		holdState.INVENTORY:
-			Global.addItem(plantName)
+			Global.addObj(plantName)
 			queue_free()
-		holdState.SHOP:
-			self.position = potPos
+		holdState.SELLING:
+			self.position = pos
+		holdState.PURCHASING:
+			self.position = pos
+		holdState.BUY:
+			tempScene.itemUpdate(plantName)
+			queue_free()
 
-func setPot(pos : Vector2):
-	potPos = pos
-	potPos.y -= 40
+func setPos(newPos : Vector2):
+	pos = newPos
+	pos.y -= 40
 
 func takeOut(newName):
 	plantName = newName
@@ -104,7 +163,9 @@ func takeOut(newName):
 		self.plucked.connect(Global.sceneInstanced.harvest)
 	hold()
 
-func buyOut():
-	state = holdState.SELL
+func buyOut(sell, newName):
+	plantName = newName
+	tempScene = sell
+	state = holdState.BUY
 	self.position = get_global_mouse_position() - Global.sceneCamera.position
 	hold()

@@ -1,4 +1,4 @@
-extends Area2D
+class_name placeable extends Area2D
 
 signal placed
 signal unplaced
@@ -13,8 +13,14 @@ func remGroup(group : String):
 func setPos(vec : Vector2):
 	self.position = vec
 
-func place():
-	placed.emit(self)
+func place(obj):
+	if obj:
+		placed.emit(self, obj)
+	else:
+		placed.emit(self)
 
-func unplace():
-	unplaced.emit(self)
+func unplace(obj):
+	if obj:
+		unplaced.emit(self, obj)
+	else:
+		unplaced.emit(self)

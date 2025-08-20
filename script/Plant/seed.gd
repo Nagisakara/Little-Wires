@@ -1,6 +1,6 @@
 extends Node2D
 
-enum holdState {BOARD, INVENTORY}
+enum holdState {BOARD, INVENTORY, SELLING, PURCHASING, BUY}
 
 var area : Area2D
 
@@ -9,6 +9,7 @@ var state := holdState.BOARD
 var follow := false
 var velocity := 0.0
 var pos : Vector2
+var tempScene
 
 func _ready():
 	area = get_node("Area2D")
@@ -30,7 +31,7 @@ func _physics_process(delta):
 			velocity = 0
 		self.position = oldPos + (newPos*velocity*delta)
 
-func _unhandled_input(event):
+func _input(event):
 	if event.is_action_released("Click") and follow:
 		var space_state = get_world_2d().direct_space_state
 		var params = PhysicsPointQueryParameters2D.new() 
@@ -38,20 +39,75 @@ func _unhandled_input(event):
 		params.collide_with_areas = true
 		var out = space_state.intersect_point(params)
 		for i in range(out.size()):
-			if out[i].collider.is_in_group("Soil") and Global.currLoaded == Global.scenes.PLANT:
-				out[i].collider.plant(seedName)
-				queue_free()
-				return
-			if out[i].collider.is_in_group("Shop"):
-				state = holdState.BOARD
-				pos = get_global_mouse_position() - Global.sceneCamera.position
-				drop()
-				return
-			if out[i].collider.is_in_group("SeedButton"):
-				state = holdState.INVENTORY
-				drop()
-				return
+			match state:
+				holdState.INVENTORY:
+					if out[i].collider.is_in_group("Soil"):
+						out[i].collider.plant(seedName)
+						queue_free()
+						return
+					if out[i].collider.is_in_group("SeedButton"):
+						state = holdState.INVENTORY
+						drop()
+						return
+					if out[i].collider.is_in_group("Selling"):
+						placeBox("Sell")
+						state = holdState.SELLING
+						pos = get_global_mouse_position() - Global.sceneCamera.position
+						drop()
+						return
+				holdState.BOARD:
+					if out[i].collider.is_in_group("Soil"):
+						out[i].collider.plant(seedName)
+						queue_free()
+						return
+					if out[i].collider.is_in_group("SeedButton"):
+						state = holdState.INVENTORY
+						drop()
+						return
+				holdState.SELLING:
+					if out[i].collider.is_in_group("Selling"):
+						state = holdState.SELLING
+						pos = get_global_mouse_position() - Global.sceneCamera.position
+						drop()
+						return
+					if out[i].collider.is_in_group("SeedButton"):
+						unplaceBox("Sell")
+						state = holdState.INVENTORY
+						drop()
+						return
+				holdState.PURCHASING:
+					if out[i].collider.is_in_group("Purchasing"):
+						state = holdState.PURCHASING
+						pos = get_global_mouse_position() - Global.sceneCamera.position
+						drop()
+						return
+					if out[i].collider.is_in_group("SellFront"):
+						unplaceBox("Buy")
+						state = holdState.BUY
+						drop()
+						return
+				holdState.BUY:
+					if out[i].collider.is_in_group("Purchasing"):
+						placeBox("Buy")
+						state = holdState.PURCHASING
+						pos = get_global_mouse_position() - Global.sceneCamera.position
+						drop()
+						return
 		drop()
+
+func placeBox(Which : String):
+	match Which:
+		"Buy":
+			Global.sceneInstanced.getBuyBox().place(self)
+		"Sell":
+			Global.sceneInstanced.getSellBox().place(self)
+
+func unplaceBox(Which : String):
+	match Which:
+		"Buy":
+			Global.sceneInstanced.getBuyBox().unplace(self)
+		"Sell":
+			Global.sceneInstanced.getSellBox().unplace(self)
 
 func click():
 	hold()
@@ -66,16 +122,30 @@ func hold():
 
 func drop():
 	follow = false
+	self.z_index = 0
 	match state:
 		holdState.INVENTORY:
-			self.z_index = 0
-			Global.addSeed(seedName)
+			Global.addObj(seedName)
 			queue_free()
 		holdState.BOARD:
 			self.position = pos
+		holdState.PURCHASING:
+			self.position = pos
+		holdState.SELLING:
+			self.position = pos
+		holdState.BUY:
+			tempScene.seedUpdate(seedName)
+			queue_free()
 
 func takeOut(newName):
 	seedName = newName
 	state = holdState.INVENTORY
+	self.position = get_global_mouse_position() - Global.sceneCamera.position
+	hold()
+
+func buyOut(sell, newName):
+	tempScene = sell
+	seedName = newName
+	state = holdState.BUY
 	self.position = get_global_mouse_position() - Global.sceneCamera.position
 	hold()

@@ -21,11 +21,9 @@ var SeedDatabase : Dictionary = {}
 #Inventories - Name : # of Name
 var ItemInventory : Dictionary = {}
 var SeedInventory : Dictionary = {}
-var ShopSelling : Dictionary = {}	#Shop -> Player
-var ShopBuying : Dictionary = {}	#Player -> Shop
 
 var PlayerInventory = {
-	"Gold" : 0
+	"Gold" : 8
 }
 
 func _ready():
@@ -40,30 +38,11 @@ func _ready():
 		var seeds : SeedData = load(res_file) as SeedData
 		SeedDatabase[seeds.name] = seeds
 
-func addItem(itemName : String):
-	if ItemInventory.has(itemName):
-		ItemInventory[itemName] += 1
-	else:
-		ItemInventory[itemName] = 1
-
 func getItem(itemName : String):
 	if ItemDatabase.has(itemName):
 		return ItemDatabase[itemName]
 	else:
 		return null
-
-func remItem(itemName : String):
-	if ItemInventory.has(itemName):
-		if ItemInventory[itemName] > 1:
-			ItemInventory[itemName] -= 1
-		else:
-			ItemInventory.erase(itemName)
-
-func addSeed(seedName : String):
-	if SeedInventory.has(seedName):
-		SeedInventory[seedName] += 1
-	else:
-		SeedInventory[seedName] = 1
 
 func getSeed(seedName : String):
 	if SeedDatabase.has(seedName):
@@ -71,16 +50,36 @@ func getSeed(seedName : String):
 	else:
 		return null
 
-func remSeed(seedName : String):
-	if SeedInventory.has(seedName):
-		if SeedInventory[seedName] > 1:
-			SeedInventory[seedName] -= 1
+func addObj(objName : String):
+	if getSeed(objName):
+		if SeedInventory.has(objName):
+			SeedInventory[objName] += 1
 		else:
-			SeedInventory.erase(seedName)
+			SeedInventory[objName] = 1
+	elif getItem(objName):
+		if ItemInventory.has(objName):
+			ItemInventory[objName] += 1
+		else:
+			ItemInventory[objName] = 1
+
+func remObj(objName : String):
+	if SeedInventory.has(objName):
+		if SeedInventory[objName] > 1:
+			SeedInventory[objName] -= 1
+		else:
+			SeedInventory.erase(objName)
+	elif ItemInventory.has(objName):
+		if ItemInventory[objName] > 1:
+			ItemInventory[objName] -= 1
+		else:
+			ItemInventory.erase(objName)
 
 func changeGold(newGold):
 	PlayerInventory["Gold"] += newGold
 	goldChange.emit()
+
+func getGold():
+	return PlayerInventory["Gold"]
 
 func instanced():
 	sceneInstanced = sceneInstances[currLoaded]

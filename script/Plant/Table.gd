@@ -16,13 +16,13 @@ func _ready():
 			pots.placed.connect(potting)
 			pots.unplaced.connect(unpotting)
 
-func potting(placeable):
-	locations[placeable.position] = true
-	placeable.remGroup("Pots")
+func potting(place):
+	locations[place.position] = true
+	place.remGroup("Pots")
 
-func unpotting(placeable):
-	locations[placeable.position] = false
-	placeable.setGroup("Pots")
+func unpotting(place):
+	locations[place.position] = false
+	place.setGroup("Pots")
 
 func makePots():
 	for i in locations.keys():

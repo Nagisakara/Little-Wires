@@ -3,7 +3,6 @@ extends Node2D
 var scenes : Array
 var camera : Camera2D
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	var plant = get_node("PlantScene")
 	var alchemy = get_node("AlchemyScene")
@@ -23,7 +22,7 @@ func changeScene(direction):
 		camera.setPos(scenes[Global.currLoaded].position)
 		Global.sceneChanged.emit()
 		Global.instanced()
-		
+
 func _input(event):
 	if event.is_action_pressed("Click") && Global.cameraReady():
 		var space_state = get_world_2d().direct_space_state
@@ -36,4 +35,3 @@ func _input(event):
 				out[i].collider.clicking()
 				return
 		Global.click.emit()
-				

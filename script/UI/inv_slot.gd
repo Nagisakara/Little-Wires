@@ -3,6 +3,7 @@ extends Panel
 var display : Sprite2D
 var label : Label
 var area : Area2D
+var collide : CollisionShape2D
 var parent
 var what
 
@@ -10,6 +11,7 @@ func _ready():
 	display = get_node("Display")
 	label = get_node("Label")
 	area = get_node("Area2D")
+	collide = get_node("Area2D/CollisionShape2D")
 	display.visible = false
 	label.visible = false
 	area.click.connect(clicking)
@@ -32,6 +34,8 @@ func unUpdate():
 	display.visible = false
 	label.visible = false
 	what = null
+	collide.disabled = true
+	
 
 func clicking():
 	if what:
@@ -39,8 +43,5 @@ func clicking():
 		Global.sceneInstanced.add_child(scene)
 		Input.action_press("Click")
 		scene.takeOut(what.name)
-		if what is ItemData:
-			Global.remItem(what.name)
-		elif what is SeedData:
-			Global.remSeed(what.name)
+		Global.remObj(what.name)
 		parent.beFree()
