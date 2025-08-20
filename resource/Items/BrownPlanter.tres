@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://crku54aigb6mr"]
 
 [ext_resource type="PackedScene" uid="uid://bbssmnccixvya" path="res://scene/plant.tscn" id="1_2e0s0"]
-[ext_resource type="Script" path="res://script/Main/ItemData.gd" id="1_880wf"]
+[ext_resource type="Script" path="res://script/Resources/ItemData.gd" id="1_880wf"]
 [ext_resource type="Texture2D" uid="uid://did35ctod25n6" path="res://Sprites/leaf-export.png" id="2_enfo4"]
 
 [resource]
