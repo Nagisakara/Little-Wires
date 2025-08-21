@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cltudl1heya3t"]
 
 [ext_resource type="Texture2D" uid="uid://cpc3kkcfnptws" path="res://Sprites/inventory-slot.png" id="1_6m35n"]
-[ext_resource type="Script" path="res://script/UI/inv_slot.gd" id="1_ptgs5"]
+[ext_resource type="Script" uid="uid://cpu61x6a42aqi" path="res://script/UI/inv_slot.gd" id="1_ptgs5"]
 [ext_resource type="Texture2D" uid="uid://did35ctod25n6" path="res://Sprites/leaf-export.png" id="3_5dydg"]
-[ext_resource type="Script" path="res://script/Main/Clickable.gd" id="4_cyk8w"]
+[ext_resource type="Script" uid="uid://64uneydd0jn3" path="res://script/Main/Clickable.gd" id="4_cyk8w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8g8mp"]
 size = Vector2(16, 16)

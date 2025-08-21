@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopData" load_steps=2 format=3 uid="uid://dgiinij4y1hn4"]
+
+[ext_resource type="Script" uid="uid://c1rohig0t8l7g" path="res://script/Resources/ShopData.gd" id="1_3oq45"]
+
+[resource]
+script = ExtResource("1_3oq45")
+name = "Starter"
+description = ""
+wares = ["Brown Planter", "Brown Seed"]
+probs = [1, 1]

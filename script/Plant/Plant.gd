@@ -148,7 +148,7 @@ func drop():
 		holdState.PURCHASING:
 			self.position = pos
 		holdState.BUY:
-			tempScene.itemUpdate(plantName)
+			tempScene.update(plantName)
 			queue_free()
 
 func setPos(newPos : Vector2):

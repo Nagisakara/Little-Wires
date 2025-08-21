@@ -13,11 +13,12 @@ var sceneUI
 var sceneCamera
 
 var currLoaded := scenes.PLANT
+var ShopLoaded : ShopData
 
 #Databases - Name : Data
 var ItemDatabase : Dictionary = {}
 var SeedDatabase : Dictionary = {}
-
+var Shops : Dictionary = {}
 #Inventories - Name : # of Name
 var ItemInventory : Dictionary = {}
 var SeedInventory : Dictionary = {}
@@ -29,6 +30,7 @@ var PlayerInventory = {
 func _ready():
 	var itemPath = "res://resource/Items"
 	var seedPath = "res://resource/Seeds"
+	var shopPath = "res://resource/Shops"
 	for file in DirAccess.get_files_at(itemPath):
 		var res_file = itemPath + "/" + file
 		var item : ItemData = load(res_file) as ItemData
@@ -37,6 +39,11 @@ func _ready():
 		var res_file = seedPath + "/" + file
 		var seeds : SeedData = load(res_file) as SeedData
 		SeedDatabase[seeds.name] = seeds
+	for file in DirAccess.get_files_at(shopPath):
+		var res_file = shopPath + "/" + file
+		var shop : ShopData = load(res_file) as ShopData
+		Shops[shop.name] = shop
+	ShopLoaded = Shops["Starter"]
 
 func getItem(itemName : String):
 	if ItemDatabase.has(itemName):
@@ -47,6 +54,14 @@ func getItem(itemName : String):
 func getSeed(seedName : String):
 	if SeedDatabase.has(seedName):
 		return SeedDatabase[seedName]
+	else:
+		return null
+
+func getObj(objName : String):
+	if getItem(objName):
+		return getItem(objName)
+	elif getSeed(objName):
+		return getSeed(objName)
 	else:
 		return null
 

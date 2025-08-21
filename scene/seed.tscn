@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://4guxq43i528v"]
 
 [ext_resource type="Texture2D" uid="uid://dteyd3o0rben1" path="res://Sprites/SeedPlaceholder.png" id="1_1d7qh"]
-[ext_resource type="Script" path="res://script/Plant/seed.gd" id="1_viijs"]
-[ext_resource type="Script" path="res://script/Main/Clickable.gd" id="3_roq78"]
+[ext_resource type="Script" uid="uid://dt1yub4nndnn7" path="res://script/Plant/seed.gd" id="1_viijs"]
+[ext_resource type="Script" uid="uid://64uneydd0jn3" path="res://script/Main/Clickable.gd" id="3_roq78"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqmmu"]
 size = Vector2(15.5, 15.75)

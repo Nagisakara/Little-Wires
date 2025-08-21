@@ -134,7 +134,7 @@ func drop():
 		holdState.SELLING:
 			self.position = pos
 		holdState.BUY:
-			tempScene.seedUpdate(seedName)
+			tempScene.update(seedName)
 			queue_free()
 
 func takeOut(newName):

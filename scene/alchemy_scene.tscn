@@ -1,11 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ggn7rho5kv37"]
 
-[ext_resource type="Script" path="res://script/Alchemy/alchemy_scene.gd" id="1_2axnd"]
+[ext_resource type="Script" uid="uid://cthljddwgtnis" path="res://script/Alchemy/alchemy_scene.gd" id="1_2axnd"]
 
-[node name="MerchantScene" type="Node2D"]
+[node name="AlchemyScene" type="Node2D"]
 script = ExtResource("1_2axnd")
-
-[node name="Shelves" type="Node2D" parent="."]
-
-[node name="TileMap" type="TileMap" parent="Shelves"]
-format = 2

@@ -16,16 +16,8 @@ func _ready():
 	label.visible = false
 	area.click.connect(clicking)
 
-func itemUpdate(itemKey : String):
-	what = Global.getItem(itemKey)
-	label.text = str(what.price)
-	display.texture = what.texture
-	display.visible = true
-	label.visible = true
-	collide.disabled = false
-
-func seedUpdate(seedKey : String):
-	what = Global.getSeed(seedKey)
+func update(key : String):
+	what = Global.getObj(key)
 	label.text = str(what.price)
 	display.texture = what.texture
 	display.visible = true

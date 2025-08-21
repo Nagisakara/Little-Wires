@@ -13,12 +13,17 @@ func _ready():
 	area.setGroup("SellFront")
 
 func setUpShop():
+	var rng = RandomNumberGenerator.new()
 	for i in seedSlots:
-		var randkey = Global.SeedDatabase.keys().pick_random()
-		i.seedUpdate(randkey)
+		var randkey = Global.ShopLoaded.wares[rng.rand_weighted(Global.ShopLoaded.probs)]
+		while !(Global.getObj(randkey) is SeedData):
+			randkey = Global.ShopLoaded.wares[rng.rand_weighted(Global.ShopLoaded.probs)]
+		i.update(randkey)
 	for i in itemSlots:
-		var randkey = Global.ItemDatabase.keys().pick_random()
-		i.itemUpdate(randkey)
+		var randkey = Global.ShopLoaded.wares[rng.rand_weighted(Global.ShopLoaded.probs)]
+		while !(Global.getObj(randkey) is ItemData):
+			randkey = Global.ShopLoaded.wares[rng.rand_weighted(Global.ShopLoaded.probs)]
+		i.update(randkey)
 
 func closeUpShop():
 	for i in seedSlots:
