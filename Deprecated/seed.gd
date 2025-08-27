@@ -42,8 +42,11 @@ func _input(event):
 			match state:
 				holdState.INVENTORY:
 					if out[i].collider.is_in_group("Soil"):
-						out[i].collider.plant(seedName)
-						queue_free()
+						if out[i].collider.plant(seedName):
+							queue_free()
+						else:
+							state = holdState.INVENTORY
+							drop()
 						return
 					if out[i].collider.is_in_group("SeedButton"):
 						state = holdState.INVENTORY

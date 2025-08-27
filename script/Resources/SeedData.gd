@@ -6,3 +6,5 @@ extends Resource
 @export var texture : Texture2D
 @export var price : int = 5
 @export var scene: PackedScene
+@export var fruit : Resource
+@export var numFruits : int

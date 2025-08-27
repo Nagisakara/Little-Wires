@@ -82,7 +82,4 @@ func purchase():
 	setLabel()
 
 func getObj(obj):
-	if "plantName" in obj:
-		return Global.getItem(obj.plantName)
-	elif "seedName" in obj:
-		return Global.getSeed(obj.seedName)
+	return Global.getObj(obj.getName())

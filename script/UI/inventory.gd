@@ -3,17 +3,20 @@ extends Control
 @onready var grid = $NinePatchRect/GridContainer
 var slots : Array
 var hovered := false
+var what
 var button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.click.connect(checkClick)
 	Global.sceneChanged.connect(checkClick)
+	Global.purchase.connect(invChanged)
 	slots = grid.get_children()
 
 func init(which : String):
+	what = which
 	for i in range(9):
-			match which:
+			match what:
 				"Seed":
 					if(i < Global.SeedInventory.size()):
 						var key = Global.SeedInventory.keys()[i]
@@ -34,6 +37,9 @@ func init(which : String):
 func checkClick():
 	if !hovered:
 		beFree()
+
+func invChanged():
+	init(what)
 
 func beFree():
 	queue_free()

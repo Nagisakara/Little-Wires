@@ -6,6 +6,7 @@ var area : Area2D
 var collide : CollisionShape2D
 var parent
 var what
+var selling := true
 
 func _ready():
 	display = get_node("Display")
@@ -18,16 +19,18 @@ func _ready():
 
 func itemUpdate(itemKey : String):
 	what = Global.getItem(itemKey)
-	label.text = str(Global.ItemInventory[itemKey])
+	if selling:
+		label.text = str(Global.ItemInventory[itemKey])
+		display.visible = true
 	display.texture = what.texture
-	display.visible = true
 	label.visible = true
 
 func seedUpdate(seedKey : String):
 	what = Global.getSeed(seedKey)
-	label.text = str(Global.SeedInventory[seedKey])
+	if selling:
+		label.text = str(Global.SeedInventory[seedKey])
+		display.visible = true
 	display.texture = what.texture
-	display.visible = true
 	label.visible = true
 
 func unUpdate():
@@ -35,7 +38,6 @@ func unUpdate():
 	label.visible = false
 	what = null
 	collide.disabled = true
-	
 
 func clicking():
 	if what:

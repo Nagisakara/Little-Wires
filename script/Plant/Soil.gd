@@ -1,6 +1,5 @@
 extends Area2D
-
-signal planted(something)
+var holder
 
 func plant(seedName):
-	planted.emit(seedName)
+	return holder.plant(seedName)

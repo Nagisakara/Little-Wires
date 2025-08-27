@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://unjtw8wjicvd"]
+
+[ext_resource type="Script" uid="uid://b6jpjf4dmw0l" path="res://script/Resources/ItemData.gd" id="1_kchit"]
+
+[resource]
+script = ExtResource("1_kchit")
+name = "Brown Potion"
+description = ""
+price = 5
+metadata/_custom_type_script = "uid://b6jpjf4dmw0l"

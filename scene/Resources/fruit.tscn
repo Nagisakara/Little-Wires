@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmi6mkvu482k5"]
+
+[ext_resource type="Texture2D" uid="uid://tv2pxtt1uhkc" path="res://Sprites/Sprite-0003-export.png" id="1_qcok3"]
+[ext_resource type="Script" uid="uid://c0t3tj7g725pm" path="res://script/Main/draggable.gd" id="1_vg7gn"]
+[ext_resource type="Script" uid="uid://64uneydd0jn3" path="res://script/Main/Clickable.gd" id="3_mhhke"]
+[ext_resource type="Script" uid="uid://c5d0buf0n1csm" path="res://script/Plant/fruitIndy.gd" id="3_rb7i2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nd2cy"]
+size = Vector2(15.5, 15.75)
+
+[node name="Fruit" type="Node2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_vg7gn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qcok3")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_mhhke")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -0.375)
+shape = SubResource("RectangleShape2D_nd2cy")
+
+[node name="Indy" type="Node2D" parent="."]
+script = ExtResource("3_rb7i2")

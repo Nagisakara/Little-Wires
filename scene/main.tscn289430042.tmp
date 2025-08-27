@@ -1,18 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://8i5r886m048e"]
+[gd_scene load_steps=15 format=3 uid="uid://8i5r886m048e"]
 
 [ext_resource type="Script" uid="uid://bhdvha8lmx6ux" path="res://script/Main/main.gd" id="1_c5bq3"]
 [ext_resource type="Script" uid="uid://daf0ea0mva3lr" path="res://script/UI/SceneChanges.gd" id="2_2bs8e"]
 [ext_resource type="Script" uid="uid://djp6dj0m8f23a" path="res://script/Main/Camera2D.gd" id="2_ab5t6"]
-[ext_resource type="PackedScene" uid="uid://ggn7rho5kv37" path="res://scene/alchemy_scene.tscn" id="3_ec2aq"]
-[ext_resource type="PackedScene" uid="uid://yy44dyk8narh" path="res://scene/plant_scene.tscn" id="4_olxen"]
+[ext_resource type="PackedScene" uid="uid://ggn7rho5kv37" path="res://scene/Alchemy/alchemy_scene.tscn" id="3_ec2aq"]
+[ext_resource type="PackedScene" uid="uid://yy44dyk8narh" path="res://scene/Garden/plant_scene.tscn" id="4_olxen"]
 [ext_resource type="Script" uid="uid://bqg0s0xdt2lon" path="res://script/UI/SeedButton.gd" id="4_whr42"]
-[ext_resource type="PackedScene" uid="uid://d377won1n3xip" path="res://scene/front_scene.tscn" id="5_caes0"]
+[ext_resource type="PackedScene" uid="uid://d377won1n3xip" path="res://scene/Front/front_scene.tscn" id="5_caes0"]
 [ext_resource type="Texture2D" uid="uid://cpa2ro8ue7dj5" path="res://Sprites/work station.png" id="5_e1gad"]
 [ext_resource type="Script" uid="uid://64uneydd0jn3" path="res://script/Main/Clickable.gd" id="5_v3qrv"]
 [ext_resource type="Script" uid="uid://b8kq10wds4ovv" path="res://script/UI/ItemButton.gd" id="6_5ijib"]
 [ext_resource type="Script" uid="uid://duvsut3w3h3v8" path="res://script/Front/front_scene.gd" id="6_j3ya5"]
 [ext_resource type="Texture2D" uid="uid://cuclaf7kmhqoj" path="res://Sprites/Piknik basket.png" id="7_pkihs"]
-[ext_resource type="Script" uid="uid://cnvd32ewhfn1i" path="res://script/UI/label.gd" id="9_mswub"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3d2dp"]
 
@@ -85,12 +84,6 @@ offset_right = 140.0
 offset_bottom = 76.0
 theme_override_font_sizes/font_size = 16
 metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="UI"]
-visible = false
-offset_right = 40.0
-offset_bottom = 23.0
-script = ExtResource("9_mswub")
 
 [node name="AlchemyScene" parent="." instance=ExtResource("3_ec2aq")]
 position = Vector2(1152, 0)

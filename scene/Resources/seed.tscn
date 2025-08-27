@@ -1,15 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://4guxq43i528v"]
+[gd_scene load_steps=6 format=3 uid="uid://4guxq43i528v"]
 
 [ext_resource type="Texture2D" uid="uid://dteyd3o0rben1" path="res://Sprites/SeedPlaceholder.png" id="1_1d7qh"]
-[ext_resource type="Script" uid="uid://dt1yub4nndnn7" path="res://script/Plant/seed.gd" id="1_viijs"]
+[ext_resource type="Script" uid="uid://c0t3tj7g725pm" path="res://script/Main/draggable.gd" id="1_aworf"]
 [ext_resource type="Script" uid="uid://64uneydd0jn3" path="res://script/Main/Clickable.gd" id="3_roq78"]
+[ext_resource type="Script" uid="uid://pln2lwyslu4e" path="res://script/Plant/seedIndy.gd" id="4_1t1gp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqmmu"]
 size = Vector2(15.5, 15.75)
 
 [node name="Seed" type="Node2D"]
 scale = Vector2(4, 4)
-script = ExtResource("1_viijs")
+script = ExtResource("1_aworf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_1d7qh")
@@ -20,3 +21,6 @@ script = ExtResource("3_roq78")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -0.375)
 shape = SubResource("RectangleShape2D_uqmmu")
+
+[node name="Indy" type="Node2D" parent="."]
+script = ExtResource("4_1t1gp")

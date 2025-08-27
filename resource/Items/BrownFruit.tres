@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://cv1kvgtx5eeve"]
+
+[ext_resource type="PackedScene" uid="uid://cmi6mkvu482k5" path="res://scene/Resources/fruit.tscn" id="1_d2vbh"]
+[ext_resource type="Script" uid="uid://b6jpjf4dmw0l" path="res://script/Resources/ItemData.gd" id="2_s7nih"]
+[ext_resource type="Texture2D" uid="uid://tv2pxtt1uhkc" path="res://Sprites/Sprite-0003-export.png" id="3_edmdb"]
+
+[resource]
+script = ExtResource("2_s7nih")
+name = "Brown Fruit"
+description = ""
+texture = ExtResource("3_edmdb")
+price = 2
+scene = ExtResource("1_d2vbh")
+metadata/_custom_type_script = "uid://b6jpjf4dmw0l"

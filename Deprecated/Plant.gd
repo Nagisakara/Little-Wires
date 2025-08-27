@@ -7,14 +7,11 @@ var soil : Area2D
 var holder
 
 var plantName : String
-var seedName : String
 var state := holdState.BOARD
 var follow := false
 var velocity := 0.0
 var pos := Vector2(0, 0)
 var tempScene
-
-signal plucked
 
 func _ready():
 	area = get_node("Holder/Pot")
@@ -22,7 +19,7 @@ func _ready():
 	area.unclick.connect(unclick)
 	holder = get_node("Holder")
 	soil = get_node("Holder/Soil")
-	soil.planted.connect(holder.plant)
+	soil.holder = holder
 
 func _physics_process(delta):
 	if follow:
@@ -159,8 +156,6 @@ func takeOut(newName):
 	plantName = newName
 	state = holdState.INVENTORY
 	self.position = get_global_mouse_position() - Global.sceneCamera.position
-	if Global.currLoaded == Global.scenes.PLANT:
-		self.plucked.connect(Global.sceneInstanced.harvest)
 	hold()
 
 func buyOut(sell, newName):

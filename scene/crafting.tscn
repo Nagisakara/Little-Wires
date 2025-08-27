@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq8ljhcf8y8gt"]
+
+[ext_resource type="Texture2D" uid="uid://df6r1220hmoll" path="res://Sprites/inventory-background.png" id="1_btqt3"]
+[ext_resource type="Script" uid="uid://byayjby0x0sgv" path="res://scene/crafting.gd" id="1_wirp4"]
+[ext_resource type="PackedScene" uid="uid://cltudl1heya3t" path="res://scene/inv_slot.tscn" id="2_les22"]
+
+[node name="Crafting" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 75.0
+offset_bottom = 23.0
+scale = Vector2(4, 4)
+script = ExtResource("1_wirp4")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 74.0
+offset_bottom = 22.0
+texture = ExtResource("1_btqt3")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Ingredients" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 44.0
+offset_bottom = 20.0
+columns = 2
+
+[node name="InvSlot" parent="NinePatchRect/Ingredients" instance=ExtResource("2_les22")]
+layout_mode = 2
+
+[node name="InvSlot2" parent="NinePatchRect/Ingredients" instance=ExtResource("2_les22")]
+layout_mode = 2
+
+[node name="Result" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 3.0
+offset_right = 69.0
+offset_bottom = 19.0
+
+[node name="InvSlot" parent="NinePatchRect/Result" instance=ExtResource("2_les22")]
+layout_mode = 2

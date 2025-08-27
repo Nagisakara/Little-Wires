@@ -1,6 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://ggn7rho5kv37"]
+[gd_scene load_steps=6 format=3 uid="uid://ggn7rho5kv37"]
 
 [ext_resource type="Script" uid="uid://cthljddwgtnis" path="res://script/Alchemy/alchemy_scene.gd" id="1_2axnd"]
+[ext_resource type="Texture2D" uid="uid://c23trth2h1wkm" path="res://Sprites/Water well.png" id="2_0cehq"]
+[ext_resource type="Script" uid="uid://dpirfnycwfppy" path="res://script/Alchemy/potion_craft.gd" id="2_xli8c"]
+[ext_resource type="Script" uid="uid://ccyxinm10l71v" path="res://script/Main/placeable.gd" id="4_1j7nr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0cehq"]
+size = Vector2(98, 93)
 
 [node name="AlchemyScene" type="Node2D"]
 script = ExtResource("1_2axnd")
+
+[node name="PotionCraft" type="Node2D" parent="."]
+position = Vector2(-258, -3)
+script = ExtResource("2_xli8c")
+
+[node name="Sprite2D" type="Sprite2D" parent="PotionCraft"]
+scale = Vector2(3, 3)
+texture = ExtResource("2_0cehq")
+
+[node name="Area2D" type="Area2D" parent="PotionCraft"]
+script = ExtResource("4_1j7nr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PotionCraft/Area2D"]
+position = Vector2(-3, 0.5)
+shape = SubResource("RectangleShape2D_0cehq")

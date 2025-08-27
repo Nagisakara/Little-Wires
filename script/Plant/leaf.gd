@@ -1,38 +1,40 @@
-extends Node2D
+class_name Leaf extends Node2D
 
-var rng = RandomNumberGenerator.new()
 var clipped = false
 var vecy
+var fruitName : String
+
 var notif : VisibleOnScreenNotifier2D
 var collide : CollisionShape2D
-var root
 var area : Area2D
-signal leafed(which)
+
+signal leafed()
 
 func _ready():
 	notif = get_node("VisibleOnScreenNotifier2D")
 	collide = get_node("Area2D/CollisionShape2D")
 	area = get_node("Area2D")
 	#notif.screen_exited.connect(exited)
-	root = get_tree().root
 	area.click.connect(click)
 	area.unclick.connect(unclick)
 
-func setPos(vec : Vector2):
+func setLeaf(vec : Vector2, newName : String):
 	self.position.y = self.position.y - 32 - vec.y
 	self.position.x = self.position.x + vec.x
 	self.scale = Vector2(.5, .5)
+	fruitName = newName
 	vecy = vec
 	randAngle()
 
 func randAngle():
+	var rng = RandomNumberGenerator.new()
 	var angle = rng.randf_range(75, 192)
 	self.rotation = deg_to_rad(angle)
 
 func click():
 	clipped = true
 	self.z_index = 1
-	self.reparent(root.get_node("Main/PlantScene"))
+	self.reparent(Global.sceneInstanced)
 	collide.disabled = true
 	
 func unclick():
@@ -47,5 +49,6 @@ func _physics_process(delta):
 
 func exited():
 	if clipped:
-		leafed.emit(vecy)
+		leafed.emit(vecy, fruitName)
+		Global.purchase.emit()
 		self.queue_free()
